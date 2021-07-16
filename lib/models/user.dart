@@ -5,11 +5,7 @@ class User extends Equatable {
   final String password;
   final String sessionId;
 
-  User({
-    this.username,
-    this.password,
-    this.sessionId,
-  });
+  User({this.username, this.password, this.sessionId});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
