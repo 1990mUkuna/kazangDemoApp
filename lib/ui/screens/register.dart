@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kazang_demo/blocs/auth_bloc.dart';
 import 'package:kazang_demo/blocs/auth_event.dart';
+import 'package:kazang_demo/blocs/auth_state.dart';
 import 'package:kazang_demo/ui/widget/app_primary_btn.dart';
 import 'package:kazang_demo/ui/widget/app_text_field.dart';
-import 'package:kazang_demo/ui/widget/horizontal_text_line.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class _RegisterState extends State<Register> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  
   void _registerUser(BuildContext context) {
     BlocProvider.of<AuthBloc>(context).add(
       RegisterUserEvent(
@@ -35,7 +36,7 @@ class _RegisterState extends State<Register> {
   }
 
   _navigateToLogin(BuildContext context) =>
-      Navigator.of(context).pushNamed("/login");
+      Navigator.of(context).pushNamed("/");
 
   @override
   Widget build(BuildContext context) {
@@ -204,17 +205,39 @@ class _RegisterState extends State<Register> {
                       AppPrimaryButton(
                           isLarge: true,
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/root-navigation');
-                            bool isValid = _formKey.currentState.validate();
-                            if (isValid) {}
+                            bool isValid = _formKey.currentState.validate(); 
+                            if (isValid) {
+                              _registerUser(
+                                context,
+                              );
+                            }
                           },
-                          child: Text(
-                            "Register",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          )),
+                         child: BlocConsumer<AuthBloc, AuthState>(
+                                builder:
+                                    (BuildContext context, AuthState state) {
+                                  if (state is AuthLoadInProgress) {
+                                    return CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.black));
+                                  } else {
+                                    return Text(
+                                      "Register",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    );
+                                  }
+                                },
+                                listener: (BuildContext context, state) {
+                                  if (state is AuthLoadSuccess) {
+                                    return _navigateToLogin(context);
+                                  }
+                                },
+                              )
+                          
+                          ),
                     ],
                   ),
                 ),

@@ -6,8 +6,6 @@ import 'package:kazang_demo/blocs/auth_state.dart';
 import 'package:kazang_demo/ui/widget/app_primary_btn.dart';
 import 'package:kazang_demo/ui/widget/app_text_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kazang_demo/ui/widget/app_underline_btn.dart';
-import 'package:kazang_demo/ui/widget/horizontal_text_line.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,7 +15,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   void _navigateTosignUpIntro(BuildContext context) =>
       Navigator.of(context).pushNamed("/register");
-
+  void _navigateToHome(BuildContext context) =>
+      Navigator.of(context).pushNamed('/root-navigation');
   final _formKey = GlobalKey<FormState>();
 
   final _userNameController = TextEditingController();
@@ -170,6 +169,18 @@ class _LoginState extends State<Login> {
                           ),
                           SizedBox(height: 15),
                           SizedBox(height: 20),
+                           BlocBuilder<AuthBloc, AuthState>(
+                            builder: (context, state) {
+                              if (state is AuthLoadFailure) {
+                                return Text(
+                                  "Invalid Credential",
+                                  style: TextStyle(color: Colors.red),
+                                );
+                              } else {
+                                return SizedBox();
+                              }
+                            },
+                          ),
                           AppPrimaryButton(
                               isLarge: true,
                               onPressed: () {
@@ -180,13 +191,33 @@ class _LoginState extends State<Login> {
                                   );
                                 }
                               },
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              )),
+                              child: BlocConsumer<AuthBloc, AuthState>(
+                                builder:
+                                    (BuildContext context, AuthState state) {
+                                  if (state is AuthLoadInProgress) {
+                                    return CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.black));
+                                  } else {
+                                    return Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    );
+                                  }
+                                },
+                                listener: (BuildContext context, state) {
+                                  if (state is AuthLoadSuccess) {
+                                    return _navigateToHome(context);
+                                  }
+                                },
+                              )
+                              
+                              ),
+
                           SizedBox(height: 10),
                         ],
                       ),

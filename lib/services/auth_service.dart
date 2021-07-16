@@ -21,7 +21,13 @@ class AuthService {
   Future<User> registerWithUserNameAndPassword(
       {@required String username, @required String password}) async {
     Response<String> response = await _dio.post("$baseUrl",
-        queryParameters: {"username": username, "password": password});
+        data: {"username": username, "password": password},
+        options: Options(
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        ));
 
     // Checking Response Error
     if (response.statusCode != 200) {
@@ -29,11 +35,8 @@ class AuthService {
     }
 
     print("RESPONSE DATA IS ${response.data.runtimeType}");
-
-    // store response data inside Userjson
     final userJson = jsonDecode(response.data);
-
-    if (userJson) {
+    if (userJson == true) {
       return User.fromJson(userJson);
     } else {
       return UserError();
@@ -43,23 +46,32 @@ class AuthService {
   Future<User> loginWithUserNameAndPassword(
       {@required String username, @required String password}) async {
     Response<String> response = await _dio.post("$baseUrl/login",
-        queryParameters: {"username": username, "password": password});
+        data: {"username": username, "password": password},
+        //queryParameters: {"username": username, "password": password},
+        options: Options(
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          //contentType: "application/json"
+        ));
 
     // Checking Response Error
     if (response.statusCode != 200) {
       throw Exception("Fail to Login Please contact support");
     }
-
-    // store response data inside Userjson
-    final userJson = jsonDecode(response.data);
-
-    // Strore json response local store shared Preference
+    print("RESPONSE DATA IS ${response.data.runtimeType}");
+    final userJson = response.data;
     await _storeUserObject(userJson);
 
-    User user = User.fromJson(userJson);
-    inspect("****** User Object $user ******");
-    print("****** User Object $user *********");
+    inspect("****** User Object $userJson******");
+    print("****** User Object $userJson *********");
 
-    return user;
+    print("RESPONSE DATA IS ${response.data.runtimeType}");
+    if (userJson == true) {
+      return User.fromJson(userJson);
+    } else {
+      return UserError();
+    }
   }
 }

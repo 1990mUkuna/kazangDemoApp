@@ -4,7 +4,6 @@ object response data displayed by our app
  */
 import 'package:equatable/equatable.dart';
 
-
 class User extends Equatable {
   final String username;
   final String password;
@@ -12,7 +11,7 @@ class User extends Equatable {
 
   User({this.username, this.password, this.sessionId});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(dynamic json) {
     return User(
       username: json["username"],
       password: json["password"],
