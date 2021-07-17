@@ -14,13 +14,13 @@ class ProductsInitial extends ProductsState {}
 class ProductsLoadInProgress extends ProductsState {}
 
 class ProductsLoadSuccess extends ProductsState {
-  final List<Product> products;
+  final List<ProductModel> products;
 
   const ProductsLoadSuccess({@required this.products})
       : assert(products != null);
 
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [this.products];
 }
 
 class ProductsLoadFailure extends ProductsState {}

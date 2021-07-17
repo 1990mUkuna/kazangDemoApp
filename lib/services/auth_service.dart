@@ -61,7 +61,7 @@ class AuthService {
       throw Exception("Fail to Login Please contact support");
     }
     print("RESPONSE DATA IS ${response.data.runtimeType}");
-    final userJson = response.data;
+    final userJson = response.data["session_id"];
     await _storeUserObject(userJson);
 
     inspect("****** User Object $userJson******");

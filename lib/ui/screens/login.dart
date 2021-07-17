@@ -169,7 +169,7 @@ class _LoginState extends State<Login> {
                           ),
                           SizedBox(height: 15),
                           SizedBox(height: 20),
-                           BlocBuilder<AuthBloc, AuthState>(
+                          BlocBuilder<AuthBloc, AuthState>(
                             builder: (context, state) {
                               if (state is AuthLoadFailure) {
                                 return Text(
@@ -214,10 +214,7 @@ class _LoginState extends State<Login> {
                                     return _navigateToHome(context);
                                   }
                                 },
-                              )
-                              
-                              ),
-
+                              )),
                           SizedBox(height: 10),
                         ],
                       ),

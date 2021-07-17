@@ -5,4 +5,4 @@
 
 export 'user.dart';
 export 'user_error.dart';
-export 'product.dart';
+export 'product_model.dart';

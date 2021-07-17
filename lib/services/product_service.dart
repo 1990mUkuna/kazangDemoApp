@@ -8,7 +8,7 @@ class ProductService {
   static const baseUrl = "http://kazang-test.getsandbox.com/products";
   Dio _dio = Dio();
 
-  Future<List<Product>> getProducts() async {
+  Future<List<ProductModel>> getProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String sessionId = prefs.getString("accessToken");
 
@@ -17,7 +17,8 @@ class ProductService {
       productsUrl,
       options: Options(
         headers: {
-          // "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+          "Session-Id": "885fe94c-4c94-cf7c-298e-02c052781948",
         },
       ),
     );
@@ -27,6 +28,8 @@ class ProductService {
     }
 
     final productJson = productResponse.data as List;
-    return productJson.map((listing) => Product.fromJson(listing)).toList();
+    return productJson
+        .map((listing) => ProductModel.fromJson(listing))
+        .toList();
   }
 }

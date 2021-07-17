@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazang_demo/blocs/auth_bloc.dart';
 import 'package:kazang_demo/repositories/auth_repository.dart';
+import 'package:kazang_demo/repositories/product_repository.dart';
 import 'package:kazang_demo/root_navigator.dart';
 import 'package:kazang_demo/services/auth_service.dart';
 import 'package:kazang_demo/ui/screens/login.dart';
 import 'package:kazang_demo/ui/screens/register.dart';
 
 import 'blocs/bloc_observer.dart';
+import 'blocs/products_bloc.dart';
+import 'services/product_service.dart';
 import 'ui/screens/home.dart';
 
 void main() async {
@@ -16,15 +19,21 @@ void main() async {
   final AuthRepository authRepository = AuthRepository(
     authService: AuthService(),
   );
+  final ProductRepository productRepository = ProductRepository(
+    productService: ProductService(),
+  );
   runApp(App(
     authRepository: authRepository,
+    productRepository: productRepository,
   ));
 }
 
 class App extends StatelessWidget {
   final AuthRepository authRepository;
+  final ProductRepository productRepository;
   App({
     @required this.authRepository,
+    @required this.productRepository,
   });
 
   final Color _primaryColor = Color(0xFF74EE4F);
@@ -34,7 +43,10 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(authRepository: authRepository))
+            create: (context) => AuthBloc(authRepository: authRepository)),
+        BlocProvider<ProductsBloc>(
+            create: (context) =>
+                ProductsBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -71,10 +83,9 @@ class App extends StatelessWidget {
         ),
         routes: {
           '/': (cotext) => Login(),
-           "/register": (context) => Register(),
+          "/register": (context) => Register(),
           '/root-navigation': (context) => RoootBottomNavigation(),
           '/main': (context) => Home(),
-          
         },
       ),
     );
