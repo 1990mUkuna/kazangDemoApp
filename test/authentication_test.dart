@@ -23,7 +23,7 @@ void main() {
   setUp(() {
     // authRepository = MockUserRepository();
     productRepository = MockProductRepository();
-    productBloc = ProductsBloc(productRepository: productRepository);
+   // productBloc = ProductsBloc(productRepository: productRepository);
 
     //authBloc = AuthBloc(authRepository: authRepository);
   });

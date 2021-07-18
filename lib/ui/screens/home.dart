@@ -109,7 +109,13 @@ class _HomeState extends State<Home> {
                               );
                             } else {
                               return Center(
-                                child: Text("Product is Empty"),
+                                child: Text(
+                                  "Loading ...........",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
                               );
                             }
                           },
@@ -124,8 +130,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  
   }
-   
-   
 }

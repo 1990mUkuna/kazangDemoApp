@@ -20,7 +20,7 @@ class ProductService {
       options: Options(
         headers: {
           "Content-Type": "application/json",
-          "Session-Id": "885fe94c-4c94-cf7c-298e-02c052781948",
+          "Session-Id": "$sessionId",
         },
       ),
     );
@@ -35,17 +35,17 @@ class ProductService {
         .toList();
   }
 
-  Future<List<ProductDetailsModel>> getProductsDetails(
-      {@required int  productId}) async {
+  Future<ProductDetailsModel> getProductsDetails(
+      {@required int productId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String sessionId = prefs.getString("accessToken");
 
     final productResponse = await _dio.get(
-      "http://kazang-test.getsandbox.com/products/$productId",
+      "http://kazang-test.getsandbox.com/products/1",
       options: Options(
         headers: {
           "Content-Type": "application/json",
-          "Session-Id": "885fe94c-4c94-cf7c-298e-02c052781948",
+          "Session-Id": "$sessionId",
         },
       ),
     );
@@ -54,9 +54,8 @@ class ProductService {
       throw Exception("error getting Products");
     }
 
-    final productJson = productResponse.data as List;
-    return productJson
-        .map((listing) => ProductDetailsModel.fromJson(listing))
-        .toList();
+    final productJson = productResponse.data;
+    final showProductById = ProductDetailsModel.fromJson(productJson);
+    return showProductById;
   }
 }

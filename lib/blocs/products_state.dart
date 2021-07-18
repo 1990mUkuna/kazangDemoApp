@@ -25,7 +25,7 @@ class ProductsLoadSuccess extends ProductsState {
 }
 
 class ProductsDetailsLoadSuccess extends ProductsState {
-  final List<ProductDetailsModel> products;
+  final ProductDetailsModel products;
 
   const ProductsDetailsLoadSuccess({@required this.products})
       : assert(products != null);

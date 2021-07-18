@@ -11,15 +11,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 
 class ProductsBloc extends Bloc<ProductEvent, ProductsState> {
-  // ProductRepository productRepository =
-  //     new ProductRepository(productService: new ProductService());
+  ProductRepository productRepository =
+      new ProductRepository(productService: new ProductService());
 
-  ProductRepository productRepository;
+  /* ProductRepository productRepository;
   ProductsBloc({@required this.productRepository})
       : assert(productRepository != null),
-        super(ProductsInitial());
+        super(ProductsInitial()); */
 
-  // ProductsBloc() : super(ProductsInitial());
+  ProductsBloc() : super(ProductsInitial());
 
   @override
   Stream<ProductsState> mapEventToState(ProductEvent event) async* {
@@ -42,7 +42,7 @@ class ProductsBloc extends Bloc<ProductEvent, ProductsState> {
       try {
         yield ProductsLoadInProgress();
         await Future.delayed(const Duration(seconds: 2));
-        final List<ProductDetailsModel> products = await productRepository
+        final ProductDetailsModel products = await productRepository
             .getProductsDetails(productId: event.productID);
         yield ProductsDetailsLoadSuccess(products: products);
       } catch (e) {

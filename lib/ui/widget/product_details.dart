@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kazang_demo/blocs/product_event.dart';
 import 'package:kazang_demo/blocs/products_bloc.dart';
 import 'package:kazang_demo/blocs/products_state.dart';
+import 'package:kazang_demo/services/product_service.dart';
 
 class PrepurchasedListingArguments {
   final int productID;
@@ -15,6 +16,15 @@ class PrepurchasedProduct extends StatefulWidget {
 }
 
 class _PrepurchasedProductState extends State<PrepurchasedProduct> {
+  @override
+  initState() {
+    super.initState();
+    ProductService productService = new ProductService();
+    var products = productService.getProductsDetails(productId: 1);
+    print(products);
+    //BlocProvider.of<ProductsBloc>(context).add(ProductRequestedEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     final PrepurchasedListingArguments args =

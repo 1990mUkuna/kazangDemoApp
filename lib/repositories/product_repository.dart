@@ -15,7 +15,7 @@ class ProductRepository {
   Future<List<ProductModel>> getProducts() async =>
       await productService.getProducts();
 
-  Future<List<ProductDetailsModel>> getProductsDetails(
+  Future<ProductDetailsModel> getProductsDetails(
           {@required int productId}) async =>
       await productService.getProductsDetails(productId: productId);
 }

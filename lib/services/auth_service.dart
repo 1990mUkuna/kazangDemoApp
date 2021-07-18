@@ -15,7 +15,7 @@ class AuthService {
   //Store session ID
   _storeUserObject(String sessionIDToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("sessionID", sessionIDToken);
+    await prefs.setString("accessToken", sessionIDToken);
   }
 
   Future<User> registerWithUserNameAndPassword(
@@ -53,26 +53,29 @@ class AuthService {
           headers: {
             "Content-Type": "application/json",
           },
-          //contentType: "application/json"
         ));
 
     // Checking Response Error
     if (response.statusCode != 200) {
       throw Exception("Fail to Login Please contact support");
     }
-    print("RESPONSE DATA IS ${response.data.runtimeType}");
-    final userJson = response.data;
-    final sessionId = response.data["sessionId"];
-    await _storeUserObject(userJson);
 
+    /*  final userJson = response.data;
+    await _storeUserObject(userJson); */
+    final userJson = jsonDecode(response.data);
+
+    await _storeUserObject(userJson["session_id"]);
+    User user = User.fromJson(userJson);
+    print("*** $user ***");
     inspect("****** User Object $userJson******");
     print("****** User Object $userJson *********");
-
     print("RESPONSE DATA IS ${response.data.runtimeType}");
-    if (userJson == true) {
+    print("RESPONSE DATA IS ${response.data.runtimeType}");
+    /* if (userJson == true) {
       return User.fromJson(userJson);
     } else {
       return UserError();
-    }
+    } */
+    return user;
   }
 }
