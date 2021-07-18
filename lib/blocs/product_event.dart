@@ -17,4 +17,16 @@ class ProductRefreshRequested extends ProductEvent {
   @override
   List<Object> get props => [];
 }
- 
+
+class ProductDaetailsEvent extends ProductEvent {
+  final String productID;
+
+  ProductDaetailsEvent({
+    this.productID,
+  }) : assert(
+          productID != null,
+        );
+
+  @override
+  List<Object> get props => [productID];
+}

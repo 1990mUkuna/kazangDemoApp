@@ -13,6 +13,7 @@ import 'blocs/bloc_observer.dart';
 import 'blocs/products_bloc.dart';
 import 'services/product_service.dart';
 import 'ui/screens/home.dart';
+import 'ui/widget/product_details.dart';
 
 void main() async {
   Bloc.observer = SimpleBlocObserver();
@@ -44,9 +45,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
             create: (context) => AuthBloc(authRepository: authRepository)),
-        BlocProvider<ProductsBloc>(
-            create: (context) =>
-                ProductsBloc())
+        BlocProvider<ProductsBloc>(create: (context) => ProductsBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -86,6 +85,7 @@ class App extends StatelessWidget {
           "/register": (context) => Register(),
           '/root-navigation': (context) => RoootBottomNavigation(),
           '/main': (context) => Home(),
+          '/prepurchase-product-details': (context) => PrepurchasedProduct()
         },
       ),
     );
