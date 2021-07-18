@@ -59,22 +59,94 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                      height: 350,
+                      height: 700,
                       child: BlocProvider(
                         create: (context) =>
                             ProductsBloc()..add(ProductRequestedEvent()),
                         child: BlocBuilder<ProductsBloc, ProductsState>(
                           builder: (BuildContext context, state) {
                             if (state is ProductsLoadSuccess) {
-                              return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int i) {
-                                  return InkWell(
-                                      onTap: () {},
-                                      child: Text(state.products[i].name));
-                                },
-                                itemCount: state.products.length,
+                              return GridView(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 20.0,
+                                  crossAxisSpacing: 30.0,
+                                  childAspectRatio: 0.8,
+                                ),
+                                padding: EdgeInsets.only(
+                                    left: 16, right: 16, top: 16, bottom: 16),
+                                physics: const ScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                children: List.generate(state.products.length,
+                                    (index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.0),
+                                          bottomLeft: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0)),
+                                      boxShadow: <BoxShadow>[
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            offset: Offset(1.1, 1.1),
+                                            blurRadius: 10.0),
+                                      ],
+                                    ),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 5,
+                                                left: 5,
+                                                right: 5,
+                                                bottom: 5),
+                                            child: Container(
+                                              height: 250,
+                                              decoration: BoxDecoration(
+                                                image: new DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: new NetworkImage(state
+                                                          .products[index]
+                                                          .logo ??
+                                                      'No image available'),
+                                                ),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5)),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 15.0, top: 15.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    state.products[index].name),
+                                                SizedBox(height: 10),
+                                                Text(state.products[index]
+                                                        .summary ??
+                                                    'Summary Is empty')
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
                               );
+ 
                             } else {
                               return Center(
                                 child: Text("Product is Empty"),
@@ -83,35 +155,10 @@ class _HomeState extends State<Home> {
                           },
                         ),
                       ),
-                      /*  child: BlocBuilder<ProductsBloc, ProductsState>(
-                        builder: (BuildContext context, state) {
-                          if (state is ProductsLoadSuccess) {
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int i) {
-                                return InkWell(
-                                    onTap: () {},
-                                    child:
-                                        Text('state.products[i].name ?? ' ''));
-                              },
-                              itemCount: state.products.length,
-                            );
-                          } else {
-                            return Center(
-                              child: Text("Product is Empty"),
-                            );
-                          }
-                        },
-                      ), */
+                      
                     ),
                   ),
-
-                  /*   Flexible(
-                      child: BlocProvider<ProductsBloc>(
-                    create: (context) =>
-                        ProductsBloc()..add(ProductRequestedEvent()),
-                    child: ProductComponent(),
-                  )) */
+ 
                 ],
               ),
             ),
