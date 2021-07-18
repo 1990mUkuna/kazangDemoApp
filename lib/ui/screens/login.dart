@@ -37,6 +37,7 @@ class _LoginState extends State<Login> {
         username: _userNameController.text,
         password: _passwordController.text,
       ),
+
     );
   }
 
@@ -214,7 +215,8 @@ class _LoginState extends State<Login> {
                                     return _navigateToHome(context);
                                   }
                                 },
-                              )),
+                              )
+                              ),
                           SizedBox(height: 10),
                         ],
                       ),

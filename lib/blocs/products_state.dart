@@ -24,6 +24,16 @@ class ProductsLoadSuccess extends ProductsState {
   List<Object> get props => [this.products];
 }
 
+class ShowProductsLoadSuccess extends ProductsState {
+  final ProductModel products;
+
+  const ShowProductsLoadSuccess({@required this.products})
+      : assert(products != null);
+
+  @override
+  List<Object> get props => [this.products];
+}
+
 class ProductsDetailsLoadSuccess extends ProductsState {
   final ProductDetailsModel products;
 
