@@ -36,7 +36,7 @@ class ProductService {
   }
 
   Future<List<ProductDetailsModel>> getProductsDetails(
-      {@required productId}) async {
+      {@required int  productId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String sessionId = prefs.getString("accessToken");
 

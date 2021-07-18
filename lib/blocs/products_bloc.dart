@@ -41,8 +41,9 @@ class ProductsBloc extends Bloc<ProductEvent, ProductsState> {
       try {
         yield ProductsLoadInProgress();
         await Future.delayed(const Duration(seconds: 2));
-        final List<ProductDetailsModel> products =
-            await productRepository.getProductsDetails();
+        final List<ProductDetailsModel> products = await productRepository
+            .getProductsDetails(productId: event.productID);
+        yield ProductsDetailsLoadSuccess(products: products);
       } catch (e) {
         print(e);
         yield ProductsLoadFailure();

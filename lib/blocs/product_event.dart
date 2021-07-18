@@ -19,7 +19,7 @@ class ProductRefreshRequested extends ProductEvent {
 }
 
 class ProductDaetailsEvent extends ProductEvent {
-  final String productID;
+  final int productID;
 
   ProductDaetailsEvent({
     this.productID,
