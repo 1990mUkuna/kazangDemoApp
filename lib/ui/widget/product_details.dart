@@ -43,15 +43,13 @@ class _PrepurchasedProductState extends State<PrepurchasedProduct> {
                         create: (context) => ProductsBloc()
                           ..add(
                               ProductDaetailsEvent(productID: args.productID)),
-                        child: BlocBuilder<ProductsBloc, ProductsState>(
+                        child: BlocConsumer<ProductsBloc, ProductsState>(
                           builder: (BuildContext context, ProductsState state) {
-                            if (state is ShowProductsLoadSuccess) {
+                            if (state is ProductsLoadInProgress) {
                               return CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.black));
-                            } 
-                            
-                            else {
+                            } else {
                               return Text(
                                 "Loading .......",
                                 style: TextStyle(
@@ -60,12 +58,15 @@ class _PrepurchasedProductState extends State<PrepurchasedProduct> {
                                 ),
                               );
                             }
-                            
                           },
                           listener: (BuildContext context, state) {
                             if (state is ShowProductsLoadSuccess) {
                               return Column(
-                                children: [Text('state.products.name,')],
+                                children: [
+                                  Text(
+                                    state.products.name,
+                                  )
+                                ],
                               );
                             }
                           },

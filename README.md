@@ -28,7 +28,18 @@ Note: Update your path after Installing Flutter SDK in order for you to be able 
 
 Donload Dart and Flutter from vscode Extentions
 
-Command to be run after installing avery
-****************************************
-Run the following command to see if there are any platform dependencies you need to complete the setup
+Command 
+********
+Run the following command to see if there are any platform dependencies you need to complete the setu
 Run flutter doctor
+
+To Run the project for release 
+flutter run --release
+
+To run flutter in debug mode 
+flutter run --debug
+
+To run a test(fltter test 'test/file-name)
+flutter test test/authentication_test.dart
+
+
