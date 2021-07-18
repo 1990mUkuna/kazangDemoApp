@@ -29,11 +29,12 @@ dependencies:
   cupertino_icons: ^1.0.2 
   mocktail: ^0.1.0
   bloc: ^6.0.0
+  bloc_test: 
   flutter_bloc: ^6.0.0
   font_awesome_flutter: ^8.8.1
   convex_bottom_bar: ^3.0.0
   rxdart: ^0.22.0
-  mockito: ^5.0.11
+  mockito: 
  
 
 dev_dependencies:

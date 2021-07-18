@@ -62,6 +62,7 @@ class AuthService {
     }
     print("RESPONSE DATA IS ${response.data.runtimeType}");
     final userJson = response.data;
+    final sessionId = response.data["sessionId"];
     await _storeUserObject(userJson);
 
     inspect("****** User Object $userJson******");

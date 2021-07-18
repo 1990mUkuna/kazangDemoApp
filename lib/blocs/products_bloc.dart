@@ -11,14 +11,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 
 class ProductsBloc extends Bloc<ProductEvent, ProductsState> {
-  ProductRepository productRepository =
-      new ProductRepository(productService: new ProductService());
+  // ProductRepository productRepository =
+  //     new ProductRepository(productService: new ProductService());
 
-/*   ProductsBloc({@required this.productRepository})
+  ProductRepository productRepository;
+  ProductsBloc({@required this.productRepository})
       : assert(productRepository != null),
-        super(ProductsInitial()); */
+        super(ProductsInitial());
 
-  ProductsBloc() : super(ProductsInitial());
+  // ProductsBloc() : super(ProductsInitial());
 
   @override
   Stream<ProductsState> mapEventToState(ProductEvent event) async* {
