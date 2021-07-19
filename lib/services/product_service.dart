@@ -55,7 +55,7 @@ class ProductService {
     }
 
     final productJson = productResponse.data;
-    final showProductById = ProductDetailsModel.fromJson(productJson);
-    return showProductById;
+    //final showProductById = ProductDetailsModel.fromJson(productJson);
+    return ProductDetailsModel.fromJson(productJson);
   }
 }

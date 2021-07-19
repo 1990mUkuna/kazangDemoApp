@@ -12,6 +12,9 @@ class _HelpState extends State<Help> {
       appBar: AppBar(
         actions: [],
       ),
+      body: Column(
+        children: [],
+      ),
     );
   }
 }
